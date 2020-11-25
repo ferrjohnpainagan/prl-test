@@ -1,17 +1,11 @@
-import React, { useEffect } from "react";
-// import { useDispatch } from "react-redux";
-
-// import {getTodos} from '../../actions/todo'
-
+import React from "react";
 import AddTodo from "../todo/AddTodo";
 import Todos from "../todo/Todos";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
-const Dashboard = () => {
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(getTodos());
-  // }, [dispatch])
+const Dashboard = ({ uid }) => {
+  if (!uid) return <Redirect to="/signin" />;
   return (
     <>
       <AddTodo />
@@ -20,5 +14,11 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard
+const mapStateToProps = (state) => {
+  const uid = state.firebase.auth.uid;
+  return {
+    uid: uid,
+  };
+};
 
+export default connect(mapStateToProps)(Dashboard);

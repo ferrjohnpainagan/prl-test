@@ -9,6 +9,8 @@ import thunk from "redux-thunk";
 import { getFirebase, ReactReduxFirebaseProvider } from "react-redux-firebase";
 import firebase from "./firebase/firebase";
 import { createFirestoreInstance } from "redux-firestore";
+import { useSelector } from "react-redux";
+import { isLoaded } from "react-redux-firebase";
 
 const store = createStore(
   reducers,
@@ -21,12 +23,30 @@ const rrfProps = {
   dispatch: store.dispatch,
   createFirestoreInstance,
 };
+function AuthIsLoaded({ children }) {
+  const auth = useSelector((state) => state.firebase.auth);
+  if (!isLoaded(auth))
+    return (
+      <div className="text-center">
+        <div
+          className="spinner-grow text-secondary"
+          style={{ width: "7rem", height: "7rem", marginTop: '150px' }}
+          role="status"
+        >
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
+  return children;
+}
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
-        <App />
+        <AuthIsLoaded>
+          <App />
+        </AuthIsLoaded>
       </ReactReduxFirebaseProvider>
     </Provider>
   </React.StrictMode>,

@@ -11,11 +11,11 @@ const Todos = ({todos}) => {
     <>
       <table className="table container" style={{ marginTop: "30px" }}>
         <thead>
-          <tr className="text-info">
+          <tr className="text-secondary">
             <th scope="col">Todo</th>
-            <th scope="col">Added on</th>
+            <th scope="col">Date</th>
             <th scope="col">Status</th>
-            <th scope="col">Delete</th>
+            <th scope="col">Remove</th>
           </tr>
         </thead>
         <tbody>
@@ -26,11 +26,11 @@ const Todos = ({todos}) => {
           
         </tbody>
         <thead>
-          <tr className="text-info">
+          <tr className="text-success">
             <th scope="col">Done</th>
-            <th scope="col">Added on</th>
+            <th scope="col">Date</th>
             <th scope="col">Status</th>
-            <th scope="col">Delete</th>
+            <th scope="col">Remove</th>
           </tr>
         </thead>
         <tbody>
@@ -46,7 +46,7 @@ const Todos = ({todos}) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state);
+ 
   const todos = state.firestore.ordered.todos;
   return {
     todos: todos,
@@ -58,8 +58,8 @@ export default compose(
   firestoreConnect((ownProps) => [
     {
       collection: "todos",
-      // where: ["authorId", "==", ownProps.uid],
-      // orderBy: ["date", "desc"],
+      where: ["authorId", "==", ownProps.uid],
+      orderBy: ["date", "desc"],
     },
   ])
 )(Todos);

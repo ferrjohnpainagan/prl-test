@@ -1,17 +1,16 @@
-const reducer = (state = {}, action) => {
+const reducer = (todo = {}, action) => {
   switch (action.type) {
     case "UPDATE_TODO": {
-      console.log('updated')
-      return state;
+      return todo;
     }
     case "REMOVE_TODO": {
-      return state;
+      return todo;
     }
     case "ADD_TODO": {
-      return state;
+      return todo;
     }
     default:
-      return state;
+      return todo;
   }
 };
 
