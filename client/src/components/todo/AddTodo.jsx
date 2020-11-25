@@ -1,28 +1,33 @@
 import React, { useState } from "react";
-import Tasks from "./Tasks";
+import { addTodo } from "../../actions/todo";
+import { useDispatch, useSelector } from "react-redux";
 
 const AddTodo = () => {
-  const [todo, setTodo] = useState({
-    task: "",
+  const dispatch = useDispatch();
+  const [todos, setTodos] = useState({
+    todo: "",
+    done: false,
   });
 
   const clear = () => {
-    setTodo({
-      task: "",
+    setTodos({
+      todo: "",
+      done: false,
     });
   };
 
   const handleChange = (e) => {
-    setTodo({
-      ...todo,
+    setTodos({
+      ...todos,
       [e.target.id]: e.target.value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(addTodo(todos));
     clear();
-    console.log(todo);
+    console.log(todos);
   };
   return (
     <>
@@ -36,13 +41,13 @@ const AddTodo = () => {
           <h4>Add To do</h4>
         </legend>
         <div className="form-group">
-          <label htmlFor="task">To do</label>
+          <label htmlFor="todo">To do</label>
           <input
             type="text"
             className="form-control"
-            id="task"
+            id="todo"
             aria-describedby="emailHelp"
-            value={todo.task}
+            value={todos.todo}
             onChange={handleChange}
           />
         </div>
@@ -50,7 +55,7 @@ const AddTodo = () => {
         <button type="submit" className="btn btn-primary">
           Add
         </button>
-      </form> 
+      </form>
     </>
   );
 };
