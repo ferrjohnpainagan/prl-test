@@ -1,9 +1,12 @@
 import React from "react";
+import AddTodo from "../tasks/AddTodo";
+import Tasks from "../tasks/Tasks";
 
 const Dashboard = () => {
   return (
     <>
-      <h3>Dashboard</h3>
+      <AddTodo />
+      <Tasks />
     </>
   );
 };

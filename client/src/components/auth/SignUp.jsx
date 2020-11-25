@@ -1,12 +1,65 @@
-    import React, { useState } from 'react'
-    
-    const SignUp = () => {
-        return (
-            <div>
-               SignUp 
-            </div>
-        )
-    }
-    
-    export default SignUp
-    
+import React, { useState } from "react";
+
+const SignUp = () => {
+  const [details, setDetails] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setDetails({
+      ...details,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(details);
+  };
+  return (
+    <>
+      <form
+        className="container"
+        autoComplete="off"
+        style={{ marginTop: "30px" }}
+        onSubmit={handleSubmit}
+      >
+        <legend>
+          <h4>Sign Up</h4>
+        </legend>
+        <div className="form-group">
+          <label htmlFor="email">Enter email</label>
+          <input
+            type="email"
+            className="form-control"
+            id="email"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+            value={details.email}
+            onChange={handleChange}
+          />
+          <small id="emailHelp" className="form-text text-muted">
+            We'll never share your email with anyone else.
+          </small>
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            placeholder="Password"
+            value={details.password}
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Sign Up
+        </button>
+      </form>
+    </>
+  );
+};
+
+export default SignUp;
